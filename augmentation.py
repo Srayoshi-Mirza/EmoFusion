@@ -1,7 +1,6 @@
 import os
 import librosa
 import soundfile as sf
-import csv
 from audiomentations import Compose, AddGaussianNoise, TimeStretch, PitchShift
 
 # Define augmentation transforms
@@ -55,12 +54,7 @@ def process_dataset(dataset_folder, output_folder, dataset_name):
             except (PermissionError, FileNotFoundError) as e:
                 print(f"Error writing file: {e}")
                 continue
-    # Save metadata to a CSV file
-    csv_file_path = os.path.join(output_folder, f"{dataset_name}_metadata.csv")
-    with open(csv_file_path, 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(['File Path', 'Gender', 'Emotion', 'Intensity'])
-        writer.writerows(metadata)
+
     return metadata
 
 output_folder_subesco = 'G:/Data Science Portfolio/Emotion & Sentimental Analysis/Augmented Datasets/SUBESCO'
@@ -81,5 +75,3 @@ for file_path, gender, emotion, intensity in subesco_metadata:
 print("\nMetadata for RAVDESS dataset:")
 for file_path, gender, emotion, intensity in ravdess_metadata:
     print(f"File: {file_path}, Gender: {gender}, Emotion: {emotion}, Intensity: {intensity}")
-
-
